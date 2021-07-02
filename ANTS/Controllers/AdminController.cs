@@ -11,6 +11,7 @@ namespace ANTS.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            //test
             return View();
         }
     }
