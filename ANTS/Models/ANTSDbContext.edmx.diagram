@@ -4,22 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="20630976ca0c44ecbf0fe876d32ec390" Name="Diagram1">
-        <EntityTypeShape EntityType="ANTSModel.Account" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Action" Width="1.5" PointX="0.875" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Auditlog" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Notice" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Order" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Package" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Rating" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.User" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Voucher" Width="1.5" PointX="3.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Voucherentry" Width="1.5" PointX="6" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ANTSModel.Blog" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="d760a4f6ed4141e682552d179c88d243" Name="Diagram1">
+        <EntityTypeShape EntityType="ANTSModel.Account" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Action" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Auditlog" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Blog" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Notice" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Order" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Package" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Rating" Width="1.5" PointX="8.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.User" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Voucher" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ANTSModel.Voucherentry" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
         <AssociationConnector Association="ANTSModel.FK_Accounts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ANTSModel.FK_Auditlogs_Actions" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Auditlogs_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Auditlogs_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="ANTSModel.FK_Blogs_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Notices_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Orders_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Orders_Users1" ManuallyRouted="false" />
@@ -29,8 +31,6 @@
         <AssociationConnector Association="ANTSModel.FK_Ratings_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Voucherentry_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Voucherentry_Voucher" ManuallyRouted="false" />
-        <AssociationConnector Association="ANTSModel.FK_Auditlogs_Actions" />
-        <AssociationConnector Association="ANTSModel.FK_Blogs_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
