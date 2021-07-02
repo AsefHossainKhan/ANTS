@@ -21,8 +21,8 @@ namespace ANTS.Models
         public string details { get; set; }
         public Nullable<int> actiontypeid { get; set; }
     
+        public virtual Action Action { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
-        public virtual Action Action { get; set; }
     }
 }
