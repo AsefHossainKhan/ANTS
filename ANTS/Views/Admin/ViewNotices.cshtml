@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ANTS.Models.Notice>
+
+@{
+    ViewBag.Title = "ViewNotices";
+}
+
+<h2>ViewNotices</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.userid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usertype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notice1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usertype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.notice1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditNotice", new { id=item.noticeid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.noticeid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.noticeid })
+        </td>
+    </tr>
+}
+
+</table>
