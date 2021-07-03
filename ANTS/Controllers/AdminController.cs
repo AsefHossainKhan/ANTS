@@ -87,8 +87,34 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult CreateNotice(Notice n)
         {
-
+            if (ModelState.IsValid)
+            {
+                context.Notices.Add(n);
+                context.SaveChanges();
+                return RedirectToAction("ViewNotices");
+            }
             return View();
+        }
+
+        public ActionResult ViewNotices()
+        {
+            var users = context.Notices.ToList();
+            return View(users);
+        }
+
+        public ActionResult EditNotice(int id)
+        {
+            var notice = context.Notices.FirstOrDefault(e => e.noticeid == id);
+            return View(notice);
+        }
+
+        [HttpPost]
+        public ActionResult EditNotice(Notice n)
+        {
+            var notice = context.Notices.FirstOrDefault(e => e.noticeid == n.noticeid);
+            context.Entry(notice).CurrentValues.SetValues(n);
+            context.SaveChanges();
+            return RedirectToAction("ViewNotices");
         }
     }
 }
