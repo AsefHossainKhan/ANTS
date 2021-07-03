@@ -11,7 +11,8 @@ namespace ANTS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -34,7 +35,9 @@ namespace ANTS.Models
         public string status { get; set; }
         public string usertype { get; set; }
         public System.DateTime createdat { get; set; }
+        [Required]
         public string email { get; set; }
+        [Required]
         public string password { get; set; }
         public string image { get; set; }
         public string phone { get; set; }
