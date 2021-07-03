@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ANTS",
+    "\\ANTS\\Controllers",
+    "\\ANTS\\Migrations",
+    "\\ANTS\\Models",
+    "\\ANTS\\Views",
+    "\\ANTS\\Views\\Admin"
+  ],
+  "SelectedNode": "\\ANTS\\Views\\Admin\\Index.cshtml",
+  "PreviewInSolutionExplorer": false
+}
