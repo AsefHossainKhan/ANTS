@@ -14,8 +14,12 @@ namespace ANTS.Controllers
         public ActionResult Index()
         {
             var users = context.Users.ToList();
-            //test
             return View(users);
+        }
+
+        public ActionResult CreateManager()
+        {
+            return View();
         }
     }
 }
