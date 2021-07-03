@@ -77,8 +77,11 @@ namespace ANTS.Controllers
         public ActionResult CreateNotice()
         {
             Notice n = new Notice();
+            //CHANGE WITH AUTHKEY
             n.userid = 1;
-            return View();
+            n.createdat = DateTime.Now;
+            n.status = "Active";
+            return View(n);
         }
 
         [HttpPost]
