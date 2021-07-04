@@ -204,5 +204,11 @@ namespace ANTS.Controllers
             ViewBag.totalIncome = totalIncome;
             return View();
         }
+
+        public ActionResult ViewComplains()
+        {
+            var complains = context.Ratings.Where(x => x.complain != null).ToList();
+            return View(complains);
+        }
     }
 }

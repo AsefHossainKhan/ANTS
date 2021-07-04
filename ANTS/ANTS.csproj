@@ -265,6 +265,12 @@
     <Content Include="Views\Admin\DeleteNotice.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Seller\Create.cshtml" />
+    <Content Include="Views\Seller\Delete.cshtml" />
+    <Content Include="Views\Seller\Details.cshtml" />
+    <Content Include="Views\Seller\Edit.cshtml" />
+    <Content Include="Views\Seller\Show.cshtml" />
+    <Content Include="Views\Admin\ViewComplains.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

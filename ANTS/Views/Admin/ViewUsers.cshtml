@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ANTS.Models.User>
+@Styles.Render("~/Content")
 
 @{
     ViewBag.Title = "View Users";
@@ -44,38 +45,39 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.usertype)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.createdat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phone)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditUser", new { id=item.userid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.userid }) |
-            @Html.ActionLink("Delete", "DeleteUser", new { id=item.userid })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usertype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditUser", new { id = item.userid }) |
+                @Html.ActionLink("Details", "Details", new { id = item.userid }) |
+                @Html.ActionLink("Delete", "DeleteUser", new { id = item.userid })
+            </td>
+        </tr>
+    }
 
 </table>
