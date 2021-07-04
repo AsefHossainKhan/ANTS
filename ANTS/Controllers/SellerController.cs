@@ -24,6 +24,15 @@ namespace ANTS.Controllers
                         select p).ToList();
             return View(list);
         }
+        [HttpPost]
+        public ActionResult Show(string searching)
+        {
+            var list = (from p in context.Packages
+                        where p.packagename.Contains(searching)
+                        select p).ToList();
+            return View(list);
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -63,6 +72,27 @@ namespace ANTS.Controllers
             context.SaveChanges();
             return RedirectToAction("Show");
         }
+        public ActionResult Details(int id)
+        {
+            var p = context.Packages.FirstOrDefault(e => e.packageid == id);
+            return View(p);
+        }
+        public ActionResult Delete(int id)
+        {
+            var p = context.Packages.FirstOrDefault(e => e.packageid == id);
+            return View(p);
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteP(int id)
+        {
+            var pr = context.Packages.FirstOrDefault(e => e.packageid == id);
+            context.Packages.Remove(pr);
+            context.SaveChanges();
+            return RedirectToAction("Show");
+        }
+        
+
 
 
     }
