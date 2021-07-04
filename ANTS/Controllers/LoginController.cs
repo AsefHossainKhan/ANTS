@@ -29,6 +29,7 @@ namespace ANTS.Controllers
             {
 
                 FormsAuthentication.SetAuthCookie(usercheck.userid.ToString(), true);
+                Session["id"] = usercheck.userid.ToString();
                 //return Content(usercheck.usertype);
                 if (usercheck.usertype == "admin")
                 {
