@@ -26,6 +26,12 @@ namespace ANTS.Controllers
             var users = context.Users.ToList();
             return View(users);
         }
+        [HttpPost]
+        public ActionResult ViewUsers(string searchtext)
+        {
+            var users = context.Users.Where(x => x.name.Contains(searchtext)).ToList();
+            return View(users);
+        }
 
         //[AdminAuthentication]
         public ActionResult CreateManager()

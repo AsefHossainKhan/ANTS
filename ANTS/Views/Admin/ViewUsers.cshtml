@@ -1,10 +1,16 @@
 ﻿@model IEnumerable<ANTS.Models.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "View Users";
 }
 
-<h2>Index</h2>
+<h2>View Users</h2>
+<div class="">
+    <form action="/Admin/ViewUsers" method="post">
+        <input class="form-control" type="text" name="searchtext" value="" placeholder="Search Users via Name" />
+        <input class="form-control btn btn-primary" type="submit" value="Search" />
+    </form>
+</div>
 
 <p>
     @Html.ActionLink("Create New", "CreateManager")
