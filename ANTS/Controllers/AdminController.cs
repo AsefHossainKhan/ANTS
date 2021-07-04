@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ANTS.Authentication;
+using System.Collections;
+using System.Dynamic;
+using System.Web.Routing;
+using System.Data.Entity.SqlServer;
 
 namespace ANTS.Controllers
 {
@@ -13,10 +18,22 @@ namespace ANTS.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult ViewUsers()
+        {
             var users = context.Users.ToList();
             return View(users);
         }
+        [HttpPost]
+        public ActionResult ViewUsers(string searchtext)
+        {
+            var users = context.Users.Where(x => x.name.Contains(searchtext)).ToList();
+            return View(users);
+        }
 
+        //[AdminAuthentication]
         public ActionResult CreateManager()
         {
             User u = new User();
@@ -38,7 +55,7 @@ namespace ANTS.Controllers
                 }
                 context.Users.Add(u);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewUsers");
             }
             return View();
         }
@@ -71,7 +88,7 @@ namespace ANTS.Controllers
             var user = context.Users.FirstOrDefault(e => e.userid == id);
             context.Users.Remove(user);
             context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewUsers");
         }
 
         public ActionResult CreateNotice()
@@ -98,8 +115,50 @@ namespace ANTS.Controllers
 
         public ActionResult ViewNotices()
         {
-            var users = context.Notices.ToList();
-            return View(users);
+            var notices = context.Notices.ToList();
+            var users = context.Users.ToList();
+
+            var noticesAndNames = notices.Join(users,
+                noticekey => noticekey.userid,
+                namekey => namekey.userid,
+                (noticekey, namekey) => new
+                {
+                    noticeid = noticekey.noticeid,
+                    name = namekey.name,
+                    usertype = noticekey.usertype,
+                    notice = noticekey.notice1,
+                    createdat = noticekey.createdat,
+                    status = noticekey.status
+                });
+            //List<Notice> Lists = new List<Notice>();
+            //foreach (var item in noticesAndNames)
+            //{
+            //    var x = new Notice();
+            //    x.noticeid = item.noticeid;
+            //    x.User = new User();
+            //    x.User.name = item.name;
+            //    x.usertype = item.usertype;
+            //    x.notice1 = item.notice;
+            //    x.createdat = item.createdat;
+            //    x.status = item.status;
+            //    Lists.Add(x);
+            //}
+            //return View(Lists);
+
+            //var noticesAndNames = (from n in notices
+            //                       join u in users on n.userid equals u.userid
+            //                       select new
+            //                       {
+            //                           noticeid = n.noticeid,
+            //                           name = u.name,
+            //                           usertype = n.usertype,
+            //                           notice = n.notice1,
+            //                           createdat = n.createdat,
+            //                           status = n.status
+            //                       }).ToList();
+            //ViewBag.myData = noticesAndNames;
+
+            return View(noticesAndNames);
         }
 
         public ActionResult EditNotice(int id)
@@ -115,6 +174,35 @@ namespace ANTS.Controllers
             context.Entry(notice).CurrentValues.SetValues(n);
             context.SaveChanges();
             return RedirectToAction("ViewNotices");
+        }
+
+        public ActionResult DeleteNotice(int id)
+        {
+            var notice = context.Notices.FirstOrDefault(e => e.noticeid == id);
+            return View(notice);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteNotice")]
+        public ActionResult DeleteNoticeN(int id)
+        {
+            var notice = context.Notices.FirstOrDefault(e => e.noticeid == id);
+            context.Notices.Remove(notice);
+            context.SaveChanges();
+            return RedirectToAction("ViewNotices");
+        }
+
+        public ActionResult Dashboard()
+        {
+            var prevMonth = DateTime.Now.AddMonths(-1);
+            var nextMonth = DateTime.Now.AddMonths(1);
+
+            var monthlyIncome = context.Orders.Where(x => x.status.Equals("sold") && x.createdat > prevMonth && x.createdat < nextMonth).Select(x => x.totalprice).Sum();
+
+            var totalIncome = context.Orders.Where(x => x.status.Equals("sold")).Select(x => x.totalprice).Sum();
+            ViewBag.monthlyIncome = monthlyIncome;
+            ViewBag.totalIncome = totalIncome;
+            return View();
         }
     }
 }
