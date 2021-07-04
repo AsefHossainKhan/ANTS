@@ -91,9 +91,48 @@ namespace ANTS.Controllers
             context.SaveChanges();
             return RedirectToAction("Show");
         }
-        
 
+        //For Order table
+        public ActionResult ShowOrders()
+        {
+            var id = Convert.ToInt32(Session["id"].ToString());
+            var list = (from p in context.Orders
+                        where p.sellerid == id
+                        select p).ToList();
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult ShowOrders(string status,int id)
+        {
+            var oldp = context.Orders.FirstOrDefault(e => e.orderid == id);
+            oldp.status = status;
 
+            context.SaveChanges();
+            return RedirectToAction("ShowOrders");
+        }
+        [HttpPost]
+        public ActionResult ShowSearchOrders(string searching)
+        {
+            var list = (from p in context.Orders
+                        where p.ordername.Contains(searching)
+                        select p).ToList();
+            return View(list);
+        }
+
+        //Dashboard
+        public ActionResult Dashboard()
+        {
+            var id = Convert.ToInt32(Session["id"].ToString());
+            var price = (from p in context.Orders
+                         where p.sellerid == id
+                         where p.status =="accepted"
+                         select (p.totalprice));
+            var sum = price.Sum();
+
+            ViewData["price"] = sum;
+            return View();
+
+        }
 
     }
 }

@@ -260,6 +260,9 @@
     <Content Include="Views\Seller\Edit.cshtml" />
     <Content Include="Views\Seller\Details.cshtml" />
     <Content Include="Views\Seller\Delete.cshtml" />
+    <Content Include="Views\Seller\ShowOrders.cshtml" />
+    <Content Include="Views\Seller\ShowSearchOrders.cshtml" />
+    <Content Include="Views\Seller\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
