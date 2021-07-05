@@ -1,6 +1,7 @@
 ﻿@model ANTS.Models.Notice
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "CreateNotice";
 }
 
@@ -63,7 +64,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ViewNotices")
 </div>
 
 @section Scripts {

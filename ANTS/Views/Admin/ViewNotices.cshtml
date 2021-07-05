@@ -1,14 +1,25 @@
 ﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "ViewNotices";
 }
 
 <h2>ViewNotices</h2>
 
+<link href="~/Content/Admin/header.css" rel="stylesheet" />
+
+<div class="header-container">
+    <a href="CreateManager" class="btn btn-primary text-light create-button">Create New</a>
+
+    <form action="/Admin/ViewUsers" method="post" class="search-box">
+        <input class="form-control" type="text" name="searchtext" value="" placeholder="Search Users via Name" />
+        <input class="form-control btn btn-primary" type="submit" value="Search" />
+    </form>
+</div>
 
 <p>
     @Html.ActionLink("Create New", "CreateNotice")
 </p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             Name
@@ -48,7 +59,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditNotice", new { id = @item.GetType().GetProperty("noticeid").GetValue(item) }) |
-                @Html.ActionLink("Details", "Details", new { id = @item.GetType().GetProperty("noticeid").GetValue(item) }) |
                 @Html.ActionLink("Delete", "DeleteNotice", new { id = @item.GetType().GetProperty("noticeid").GetValue(item) })
             </td>
         </tr>
