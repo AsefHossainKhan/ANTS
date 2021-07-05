@@ -17,16 +17,16 @@ namespace ANTS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
-            this.Packages = new HashSet<Package>();
             this.Voucherentries = new HashSet<Voucherentry>();
         }
     
         public int voucherid { get; set; }
         public string voucherstatus { get; set; }
+        public string voucher1 { get; set; }
+        public int userid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Package> Packages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Voucherentry> Voucherentries { get; set; }
+        public virtual User User { get; set; }
     }
 }

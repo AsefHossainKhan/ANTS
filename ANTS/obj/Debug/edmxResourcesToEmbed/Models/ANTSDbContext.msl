@@ -85,7 +85,6 @@
           <ScalarProperty Name="details" ColumnName="details" />
           <ScalarProperty Name="category" ColumnName="category" />
           <ScalarProperty Name="discount" ColumnName="discount" />
-          <ScalarProperty Name="voucherid" ColumnName="voucherid" />
           <ScalarProperty Name="createdat" ColumnName="createdat" />
           <ScalarProperty Name="advertisement" ColumnName="advertisement" />
           <ScalarProperty Name="location" ColumnName="location" />
@@ -134,6 +133,8 @@
     <EntitySetMapping Name="Vouchers">
       <EntityTypeMapping TypeName="ANTSModel.Voucher">
         <MappingFragment StoreEntitySet="Voucher">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="voucher1" ColumnName="voucher" />
           <ScalarProperty Name="voucherid" ColumnName="voucherid" />
           <ScalarProperty Name="voucherstatus" ColumnName="voucherstatus" />
         </MappingFragment>

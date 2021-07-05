@@ -26,11 +26,11 @@
         <AssociationConnector Association="ANTSModel.FK_Orders_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Orders_Users1" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Packages_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="ANTSModel.FK_Packages_Voucher" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Ratings_Packages" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Ratings_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Voucherentry_Users" ManuallyRouted="false" />
         <AssociationConnector Association="ANTSModel.FK_Voucherentry_Voucher" ManuallyRouted="false" />
+        <AssociationConnector Association="ANTSModel.FK_Voucher_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
