@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ANTS.Models;
+using ANTS.Authentication;
 
 
 namespace ANTS.Controllers
@@ -12,10 +13,12 @@ namespace ANTS.Controllers
     {
         ANTSEntities context = new ANTSEntities();
         // GET: Seller
+        [SellerAuthentication]
         public ActionResult Index()
         {
             return View();
         }
+        [SellerAuthentication]
         public ActionResult Show()
         {
             var id = Convert.ToInt32(Session["id"].ToString());
@@ -24,6 +27,7 @@ namespace ANTS.Controllers
                         select p).ToList();
             return View(list);
         }
+        [SellerAuthentication]
         [HttpPost]
         public ActionResult Show(string searching)
         {
@@ -33,10 +37,12 @@ namespace ANTS.Controllers
             return View(list);
         }
 
+        [SellerAuthentication]
         public ActionResult Create()
         {
             return View();
         }
+        [SellerAuthentication]
         [HttpPost]
         public ActionResult Create(Package p)
         {
@@ -47,12 +53,16 @@ namespace ANTS.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [SellerAuthentication]
         public ActionResult Edit(int id)
         {
 
             var p = context.Packages.FirstOrDefault(e => e.packageid == id);
             return View(p);
         }
+
+        [SellerAuthentication]
         [HttpPost]
         public ActionResult Edit(Package p)
         {
@@ -72,16 +82,19 @@ namespace ANTS.Controllers
             context.SaveChanges();
             return RedirectToAction("Show");
         }
+        [SellerAuthentication]
         public ActionResult Details(int id)
         {
             var p = context.Packages.FirstOrDefault(e => e.packageid == id);
             return View(p);
         }
+        [SellerAuthentication]
         public ActionResult Delete(int id)
         {
             var p = context.Packages.FirstOrDefault(e => e.packageid == id);
             return View(p);
         }
+        [SellerAuthentication]
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult DeleteP(int id)
@@ -93,6 +106,7 @@ namespace ANTS.Controllers
         }
 
         //For Order table
+        [SellerAuthentication]
         public ActionResult ShowOrders()
         {
             var id = Convert.ToInt32(Session["id"].ToString());
@@ -101,6 +115,7 @@ namespace ANTS.Controllers
                         select p).ToList();
             return View(list);
         }
+        [SellerAuthentication]
         [HttpPost]
         public ActionResult ShowOrders(string status,int id)
         {
@@ -110,6 +125,7 @@ namespace ANTS.Controllers
             context.SaveChanges();
             return RedirectToAction("ShowOrders");
         }
+        [SellerAuthentication]
         [HttpPost]
         public ActionResult ShowSearchOrders(string searching)
         {
@@ -120,6 +136,7 @@ namespace ANTS.Controllers
         }
 
         //Dashboard
+        [SellerAuthentication]
         public ActionResult Dashboard()
         {
             var id = Convert.ToInt32(Session["id"].ToString());
@@ -127,11 +144,77 @@ namespace ANTS.Controllers
                          where p.sellerid == id
                          where p.status =="accepted"
                          select (p.totalprice));
-            var sum = price.Sum();
 
-            ViewData["price"] = sum;
+            if (price != null)
+            {
+                var sum = price.Sum();
+                ViewData["price"] = sum;
+            }
+            else
+            {
+                ViewData["price"] = 0;
+            }
+
+            var currentmonth = DateTime.Now.Month;
+            var monthprice = (from p in context.Orders
+                         where p.sellerid == id
+                         where p.status == "accepted"
+                         where p.createdat.Month == currentmonth
+                         select (p.totalprice));
+            if (monthprice != null)
+            {
+                var mon = monthprice.Sum();
+                ViewData["monthprice"] = mon;
+            }
+            else
+            {
+                ViewData["monthprice"] = 0;
+            }
+
+            var orderpending = (from p in context.Orders
+                              where p.sellerid == id
+                              where p.status == "pending"
+                              select p);
+            if (orderpending != null)
+            {
+                var pending = orderpending.Count();
+                ViewData["orderpending"] = pending;
+            }
+            else
+            {
+                ViewData["orderpending"] = 0;
+            }
+
+
             return View();
 
+        }
+
+        [SellerAuthentication]
+        public ActionResult EditProfile(int id)
+        {
+
+            var p = context.Users.FirstOrDefault(e => e.userid == id);
+            return View(p);
+        }
+
+        [SellerAuthentication]
+        [HttpPost]
+        public ActionResult EditProfile(User p,string ConfirmPassword)
+        {
+            var oldp = context.Users.FirstOrDefault(e => e.userid == p.userid);
+            oldp.name = p.name;
+            oldp.email = p.email;
+            oldp.image = p.image;
+            oldp.phone = p.phone;
+
+            if (p.password == ConfirmPassword)
+            {
+                oldp.password = p.password;
+            }
+
+            context.SaveChanges();
+            return RedirectToAction("EditProfile");
         }
 
     }
