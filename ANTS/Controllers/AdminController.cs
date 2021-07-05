@@ -12,6 +12,8 @@ using System.Data.Entity.SqlServer;
 
 namespace ANTS.Controllers
 {
+    //[Authorize]
+    //[AdminAuthentication]
     public class AdminController : Controller
     {
         ANTSEntities context = new ANTSEntities();
@@ -72,7 +74,7 @@ namespace ANTS.Controllers
             var user = context.Users.FirstOrDefault(e => e.userid == u.userid);
             context.Entry(user).CurrentValues.SetValues(u);
             context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewUsers");
         }
 
         public ActionResult DeleteUser(int id)
@@ -161,6 +163,28 @@ namespace ANTS.Controllers
             return View(noticesAndNames);
         }
 
+        [HttpPost]
+        public ActionResult ViewNotices(string searchtext)
+        {
+            var notices = context.Notices.ToList();
+            var users = context.Users.ToList();
+
+            var noticesAndNames = notices.Where(x => x.notice1.Contains(searchtext)).Join(users,
+                noticekey => noticekey.userid,
+                namekey => namekey.userid,
+                (noticekey, namekey) => new
+                {
+                    noticeid = noticekey.noticeid,
+                    name = namekey.name,
+                    usertype = noticekey.usertype,
+                    notice = noticekey.notice1,
+                    createdat = noticekey.createdat,
+                    status = noticekey.status
+                });
+
+            return View(noticesAndNames);
+        }
+
         public ActionResult EditNotice(int id)
         {
             var notice = context.Notices.FirstOrDefault(e => e.noticeid == id);
@@ -197,18 +221,223 @@ namespace ANTS.Controllers
             var prevMonth = DateTime.Now.AddMonths(-1);
             var nextMonth = DateTime.Now.AddMonths(1);
 
-            var monthlyIncome = context.Orders.Where(x => x.status.Equals("sold") && x.createdat > prevMonth && x.createdat < nextMonth).Select(x => x.totalprice).Sum();
+            var last30DaysIncome = context.Orders.Where(x => x.status.Equals("sold") && x.createdat > prevMonth && x.createdat < nextMonth).Select(x => x.totalprice).Sum();
 
             var totalIncome = context.Orders.Where(x => x.status.Equals("sold")).Select(x => x.totalprice).Sum();
-            ViewBag.monthlyIncome = monthlyIncome;
+
+            var currentmonth = DateTime.Now.Month;
+            var monthprice = (from p in context.Orders
+                              where p.status == "sold"
+                              where p.createdat.Month == currentmonth
+                              select (p.totalprice));
+            var monthlyIncome = monthprice.Sum();
+
+            ViewBag.last30DaysIncome = last30DaysIncome;
             ViewBag.totalIncome = totalIncome;
+            ViewBag.monthlyIncome = monthlyIncome;
+
             return View();
         }
 
         public ActionResult ViewComplains()
         {
-            var complains = context.Ratings.Where(x => x.complain != null).ToList();
-            return View(complains);
+            var modifiedComplains = from r in context.Ratings
+                                    where r.complain!=null
+                                    join u in context.Users on r.userid equals u.userid
+                                    join p in context.Packages on r.packageid equals p.packageid
+                                    select new
+                                    {
+                                        ratingid = r.ratingid,
+                                        userid = r.userid,
+                                        name = u.name,
+                                        packageid = r.packageid,
+                                        packagename = p.packagename,
+                                        rating = r.rating1,
+                                        complain = r.complain,
+                                        complainstatus = r.complainstatus
+                                        
+                                    };
+            return View(modifiedComplains);
+        }
+
+        public ActionResult EditComplain(int id)
+        {
+            var complain = context.Ratings.FirstOrDefault(e => e.ratingid == id);
+            return View(complain);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditComplain(Rating r)
+        {
+            var rating = context.Ratings.FirstOrDefault(e => e.ratingid == r.ratingid);
+            context.Entry(rating).CurrentValues.SetValues(r);
+            context.SaveChanges();
+            return RedirectToAction("ViewComplains");
+        }
+
+        public ActionResult DeleteComplain(int id)
+        {
+            var rating = context.Ratings.FirstOrDefault(e => e.ratingid == id);
+            return View(rating);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteComplain")]
+        public ActionResult DeleteComplainC(int id)
+        {
+            var rating = context.Ratings.FirstOrDefault(e => e.ratingid == id);
+            context.Ratings.Remove(rating);
+            context.SaveChanges();
+            return RedirectToAction("ViewComplains");
+        }
+
+        public ActionResult AdminAction()
+        {
+            var users = context.Users.ToList();
+            return View(users);
+        }
+
+        [HttpPost]
+        public ActionResult AdminAction(string status, string submitButton, int id = 1, string searchText="")
+        {
+            if (submitButton == "Search")
+            {
+
+                var users = context.Users.Where(x => x.name.Contains(searchText)).ToList();
+                return View(users);
+            }
+            else
+            {
+                var oldUser = context.Users.FirstOrDefault(e => e.userid == id);
+                if (oldUser.status != status)
+                {
+                    int statusId = 1;
+                    if (status == "Valid")
+                    {
+                        statusId = 1;
+                    }
+                    else if (status == "Invalid")
+                    {
+                        statusId = 2;
+                    }
+                    else if (status == "Banned")
+                    {
+                        statusId = 3;
+                    }
+                    var log = new Auditlog
+                    {
+                        adminid = 1,
+                        userid = id,
+                        createdat = DateTime.Now,
+                        details = "Apatoto Thaklo",
+                        actiontypeid = statusId
+                    };
+                    context.Auditlogs.Add(log);
+                    context.SaveChanges();
+                }
+                oldUser.status = status;
+                context.SaveChanges();
+                return RedirectToAction("AdminAction");
+            }
+        }
+
+        public ActionResult ViewVouchers()
+        {
+            var vouchersWithName = from v in context.Vouchers
+                                   join u in context.Users on v.userid equals u.userid
+                                   select new
+                                   {
+                                       voucherId = v.voucherid,
+                                       voucherStatus = v.voucherstatus,
+                                       voucher = v.voucher1,
+                                       userId = v.userid,
+                                       name = u.name
+                                   };
+            return View(vouchersWithName);
+        }
+
+        [HttpPost]
+        public ActionResult ViewVouchers(string searchText)
+        {
+            var vouchersWithName = from v in context.Vouchers
+                                   where v.voucher1.Contains(searchText)
+                                   join u in context.Users on v.userid equals u.userid
+                                   select new
+                                   {
+                                       voucherId = v.voucherid,
+                                       voucherStatus = v.voucherstatus,
+                                       voucher = v.voucher1,
+                                       userId = v.userid,
+                                       name = u.name
+                                   };
+            return View(vouchersWithName);
+        }
+
+        public ActionResult EditVoucher(int id)
+        {
+            var voucher = context.Vouchers.FirstOrDefault(e => e.voucherid == id);
+            return View(voucher);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditVoucher(Voucher v)
+        {
+            var voucher = context.Vouchers.FirstOrDefault(e => e.voucherid == v.voucherid);
+            context.Entry(voucher).CurrentValues.SetValues(v);
+            context.SaveChanges();
+            return RedirectToAction("ViewVouchers");
+        }
+
+        public ActionResult DeleteVoucher(int id)
+        {
+            var voucher = context.Vouchers.FirstOrDefault(e => e.voucherid == id);
+            return View(voucher);
+        }
+
+        [HttpPost]
+        [ActionName("DeleteVoucher")]
+        public ActionResult DeleteVoucherV(int id)
+        {
+            var voucher = context.Vouchers.FirstOrDefault(e => e.voucherid == id);
+            context.Vouchers.Remove(voucher);
+            context.SaveChanges();
+            return RedirectToAction("ViewVouchers");
+        }
+
+        public ActionResult CreateVoucher()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateVoucher(Voucher v)
+        {
+            context.Vouchers.Add(v);
+            context.SaveChanges();
+            return RedirectToAction("ViewVouchers");
+        }
+
+        public ActionResult ViewAuditLogs()
+        {
+            var auditlogs = from a in context.Auditlogs
+            join adminu in context.Users on a.adminid equals adminu.userid
+            join u in context.Users on a.userid equals u.userid
+            join action in context.Actions on a.actiontypeid equals action.actionid
+            select new
+            {
+                auditLogId = a.auditlogid,
+                adminId = a.adminid,
+                adminName = adminu.name,
+                userid = a.userid,
+                username = u.name,
+                createdat = a.createdat,
+                details = a.details,
+                actiontypeid = a.actiontypeid,
+                actionname = action.actionanme
+            };
+            return View(auditlogs);
         }
     }
 }

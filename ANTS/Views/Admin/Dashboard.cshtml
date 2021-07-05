@@ -1,5 +1,6 @@
 ﻿
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Dashboard";
 }
 
@@ -7,4 +8,6 @@
 
 Total Income = @ViewBag.totalIncome
 <br />
-Monthly Income = @ViewBag.monthlyIncome
+Last 30 Days Income = @ViewBag.last30DaysIncome
+<br />
+This months Income = @ViewBag.monthlyIncome

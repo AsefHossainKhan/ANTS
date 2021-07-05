@@ -1,57 +1,66 @@
-﻿@model IEnumerable<ANTS.Models.Rating>
+﻿@*@model IEnumerable<ANTS.Models.Rating>*@
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "ViewComplains";
 }
 
 <h2>ViewComplains</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.userid)
+            User Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.packageid)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.rating1)
+            Package Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.complain)
+            Package Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.complainstatus)
+            Rating
+        </th>
+        <th>
+            Complain
+        <th>
+            Complain Status
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.userid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.packageid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rating1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.complain)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.complainstatus)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ratingid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ratingid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ratingid })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.GetType().GetProperty("userid").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("name").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("packageid").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("packagename").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("rating").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("complain").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("complainstatus").GetValue(item)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditComplain", new { id = item.GetType().GetProperty("ratingid").GetValue(item) }) |
+                @Html.ActionLink("Delete", "DeleteComplain", new { id = item.GetType().GetProperty("ratingid").GetValue(item) })
+            </td>
+        </tr>
+    }
 </table>

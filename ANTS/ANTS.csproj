@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\header.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -271,6 +272,15 @@
     <Content Include="Views\Seller\Edit.cshtml" />
     <Content Include="Views\Seller\Show.cshtml" />
     <Content Include="Views\Admin\ViewComplains.cshtml" />
+    <Content Include="Views\Admin\EditComplain.cshtml" />
+    <Content Include="Views\Admin\DeleteComplain.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\AdminAction.cshtml" />
+    <Content Include="Views\Admin\ViewVouchers.cshtml" />
+    <Content Include="Views\Admin\EditVoucher.cshtml" />
+    <Content Include="Views\Admin\DeleteVoucher.cshtml" />
+    <Content Include="Views\Admin\CreateVoucher.cshtml" />
+    <Content Include="Views\Admin\ViewAuditLogs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

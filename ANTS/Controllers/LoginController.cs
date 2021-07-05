@@ -30,6 +30,7 @@ namespace ANTS.Controllers
 
                 FormsAuthentication.SetAuthCookie(usercheck.userid.ToString(), true);
                 Session["user_type"] = usercheck.usertype;
+                Session["name"] = usercheck.name; 
                 //return Content(usercheck.usertype);
                 if (usercheck.usertype == "Admin")
                 {
@@ -55,6 +56,7 @@ namespace ANTS.Controllers
 
         public ActionResult Logout()
         {
+            Session["user_type"] = null;
             FormsAuthentication.SignOut();
             return Redirect("/Home");
         }
