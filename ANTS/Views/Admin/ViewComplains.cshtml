@@ -55,7 +55,9 @@
                 @item.GetType().GetProperty("complain").GetValue(item)
             </td>
             <td>
-                @item.GetType().GetProperty("complainstatus").GetValue(item)
+                <b>
+                    @item.GetType().GetProperty("complainstatus").GetValue(item)
+                </b>
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditComplain", new { id = item.GetType().GetProperty("ratingid").GetValue(item) }) |
