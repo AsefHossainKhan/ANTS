@@ -377,6 +377,7 @@
     <Content Include="Views\Manager\ViewSearchPackages.cshtml" />
     <Content Include="Views\Manager\ViewUsers.cshtml" />
     <Content Include="Views\Manager\EditProfile.cshtml" />
+    <Content Include="Views\Shared\_ManagerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
