@@ -114,7 +114,11 @@ namespace ANTS.Controllers
                 context.SaveChanges();
                 return RedirectToAction("ViewNotices");
             }
-            return View();
+            Notice n1 = new Notice();
+            n1.userid = Convert.ToInt32(Session["id"]);
+            n1.createdat = DateTime.Now;
+            n1.status = "Active";
+            return View(n1);
         }
 
         public ActionResult ViewNotices()
@@ -416,9 +420,13 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult CreateVoucher(Voucher v)
         {
-            context.Vouchers.Add(v);
-            context.SaveChanges();
-            return RedirectToAction("ViewVouchers");
+            if (ModelState.IsValid)
+            {
+                context.Vouchers.Add(v);
+                context.SaveChanges();
+                return RedirectToAction("ViewVouchers");
+            }
+            return View();
         }
 
         public ActionResult ViewAuditLogs()
