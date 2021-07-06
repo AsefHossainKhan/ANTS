@@ -38,9 +38,9 @@ namespace ANTS.Controllers
         //[AdminAuthentication]
         public ActionResult CreateManager()
         {
-            User u = new User();
-            u.createdat = DateTime.Now;
-            return View(u);
+            User z = new User();
+            z.createdat = DateTime.Now;
+            return View(z);
         }
 
         [HttpPost]
@@ -59,7 +59,9 @@ namespace ANTS.Controllers
                 context.SaveChanges();
                 return RedirectToAction("ViewUsers");
             }
-            return View();
+            User x = new User();
+            x.createdat = DateTime.Now;
+            return View(x);
         }
 
         public ActionResult EditUser(int id)

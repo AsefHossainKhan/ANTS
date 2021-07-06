@@ -12,7 +12,6 @@ namespace ANTS.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class User
     {
@@ -29,8 +28,9 @@ namespace ANTS.Models
             this.Packages = new HashSet<Package>();
             this.Ratings = new HashSet<Rating>();
             this.Voucherentries = new HashSet<Voucherentry>();
+            this.Vouchers = new HashSet<Voucher>();
         }
-   
+    
         public int userid { get; set; }
         [Required]
         public string name { get; set; }
@@ -41,8 +41,6 @@ namespace ANTS.Models
         [Required]
         public System.DateTime createdat { get; set; }
         [Required]
-        [EmailAddress]
-        [Index(IsUnique = true)]
         public string email { get; set; }
         [Required]
         public string password { get; set; }
@@ -71,5 +69,7 @@ namespace ANTS.Models
         public virtual ICollection<Rating> Ratings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Voucherentry> Voucherentries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Voucher> Vouchers { get; set; }
     }
 }
