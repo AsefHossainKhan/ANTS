@@ -1,12 +1,15 @@
 ﻿using ANTS.Models;
 using System;
 using System.Collections.Generic;
+using ANTS.Authentication;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace ANTS.Controllers
 {
+    [Authorize]
+    [CustomerAuthentication]
     public class CustomerController : Controller
     {
         
@@ -35,7 +38,7 @@ namespace ANTS.Controllers
             var p = context.Packages.FirstOrDefault(e => e.packageid == id);
             return View(p);
         }
-
+        
         public ActionResult BuyPackage(int id)
         {
             var p = context.Packages.FirstOrDefault(e => e.packageid == id);
@@ -46,7 +49,9 @@ namespace ANTS.Controllers
         {
             var id = Convert.ToInt32(Session["id"]);
             var p = context.Packages.FirstOrDefault(e => e.packageid == pk.packageid);
-            Order o = new Order();
+            if (ModelState.IsValid)
+            {
+                 Order o = new Order();
             o.sellerid = p.userid;
             o.customerid = id;
             o.customerphone = phone;
@@ -61,6 +66,8 @@ namespace ANTS.Controllers
             o.status = "unsold";
             context.Orders.Add(o);
             context.SaveChanges();
+
+            }
             return RedirectToAction("Index");
         }
 
@@ -126,6 +133,9 @@ namespace ANTS.Controllers
             var id = Convert.ToInt32(Session["id"]);
             var list = (from o in context.Orders
                         where o.customerid == id
+                        where o.status == "sold"
+                        where o.status == "unsold"
+                        orderby o.createdat descending
                         where o.ordername.Contains(searching)
                         select o).ToList();
             return View(list);
@@ -138,10 +148,81 @@ namespace ANTS.Controllers
 
         }
 
+        
+        public ActionResult CancelOrder(int id)
+        {
+            var orders = context.Orders.FirstOrDefault(e => e.orderid == id);
+            return View(orders);
+
+        }
+
+
+        [HttpPost]
+        public ActionResult CancelOrder(int id, int? arg2)
+        {
+            var orders = context.Orders.FirstOrDefault(e => e.orderid == id);
+            orders.status = "cancelled";
+            context.SaveChanges();
+            return RedirectToAction("Orderhistory");
+
+        }
+
+
         public ActionResult GiveRating()
         {
             return View();
+        }
+
+        public ActionResult Complain()
+        {
+            Rating r = new Rating();
+            return View(r);
+        }
+        [HttpPost]
+        public ActionResult Complain(Rating rt)
+        {
+            var id = Convert.ToInt32(Session["id"]);
+            
+            if (ModelState.IsValid)
+            {
+                Rating r = new Rating();
+                r.userid = id;
+                r.packageid = rt.packageid;
+                r.rating1 = rt.rating1;
+                r.complain = rt.complain;
+                r.complainstatus = "unresolved";
+                context.Ratings.Add(r);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
+            return View(rt);
+            
+        }
+
+        public ActionResult BlogWriting()
+        {
+            Blog b = new Blog();
+            return View(b);
+        }
+        [HttpPost]
+        public ActionResult BlogWriting(Blog b)
+        {
+            var id = Convert.ToInt32(Session["id"]);
+
+            if (ModelState.IsValid)
+            {
+                Blog bg = new Blog();
+                bg.userid = id;
+                bg.blog1 = b.blog1;
+                context.Blogs.Add(bg);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(b);
 
         }
+      
     }
 }

@@ -1,21 +1,18 @@
 ﻿@model ANTS.Models.Order
 
 @{
-    ViewBag.Title = "Orderdetails";
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewBag.Title = "CancelOrder";
 }
 
+<h2>Cancel Order</h2>
 
-<h2>Orderdetails</h2>
-<p>
-    @Html.ActionLink("Back to List", "Orderhistory")
-</p>
+<h3>Are you sure you want to Cancel this?</h3>
 <div>
     <h4>Order</h4>
     <hr />
-    <dl class="dl-horizontal" >
+    <dl class="dl-horizontal">
         <dt>
-            Seller Id
+            @Html.DisplayNameFor(model => model.sellerid)
         </dt>
 
         <dd>
@@ -23,7 +20,7 @@
         </dd>
 
         <dt>
-            Customer Id
+            @Html.DisplayNameFor(model => model.customerid)
         </dt>
 
         <dd>
@@ -31,7 +28,7 @@
         </dd>
 
         <dt>
-            Customer Phone no
+            @Html.DisplayNameFor(model => model.customerphone)
         </dt>
 
         <dd>
@@ -39,7 +36,7 @@
         </dd>
 
         <dt>
-            Customer Address
+            @Html.DisplayNameFor(model => model.customeraddress)
         </dt>
 
         <dd>
@@ -47,7 +44,7 @@
         </dd>
 
         <dt>
-            Package Id
+            @Html.DisplayNameFor(model => model.packageid)
         </dt>
 
         <dd>
@@ -55,7 +52,7 @@
         </dd>
 
         <dt>
-            Order name
+            @Html.DisplayNameFor(model => model.ordername)
         </dt>
 
         <dd>
@@ -63,7 +60,7 @@
         </dd>
 
         <dt>
-            Paytype
+            @Html.DisplayNameFor(model => model.paytype)
         </dt>
 
         <dd>
@@ -71,7 +68,7 @@
         </dd>
 
         <dt>
-            Quantity
+            @Html.DisplayNameFor(model => model.quantity)
         </dt>
 
         <dd>
@@ -79,7 +76,7 @@
         </dd>
 
         <dt>
-            Total price
+            @Html.DisplayNameFor(model => model.totalprice)
         </dt>
 
         <dd>
@@ -87,7 +84,7 @@
         </dd>
 
         <dt>
-            Order placed at
+            @Html.DisplayNameFor(model => model.createdat)
         </dt>
 
         <dd>
@@ -95,19 +92,21 @@
         </dd>
 
         <dt>
-            Order status
+            @Html.DisplayNameFor(model => model.status)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.status)
         </dd>
+
     </dl>
-    <br />
-    <p>
 
-        <button class="btn-close-white">
-            @Html.ActionLink("Cancel Order", "CancelOrder", new { id = Model.orderid })
-        </button>
-    </p>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Cancel Confirm" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>
-

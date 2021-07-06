@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authentication\AdminAuthentication.cs" />
+    <Compile Include="Authentication\CustomerAuthentication.cs" />
     <Compile Include="Authentication\SellerAuthentication.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -516,6 +517,10 @@
     <Content Include="Views\Customer\Orderdetails.cshtml" />
     <Content Include="Views\Customer\PackageDetails.cshtml" />
     <Content Include="Views\Customer\BuyPackage.cshtml" />
+    <Content Include="Views\Customer\CancelOrder.cshtml" />
+    <Content Include="Views\Customer\Complain.cshtml" />
+    <Content Include="Views\Customer\BlogWriting.cshtml" />
+    <Content Include="Views\Customer\BlogView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
