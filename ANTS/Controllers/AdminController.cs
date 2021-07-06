@@ -12,8 +12,8 @@ using System.Data.Entity.SqlServer;
 
 namespace ANTS.Controllers
 {
-    //[Authorize]
-    //[AdminAuthentication]
+    [Authorize]
+    [AdminAuthentication]
     public class AdminController : Controller
     {
         ANTSEntities context = new ANTSEntities();
@@ -97,7 +97,7 @@ namespace ANTS.Controllers
         {
             Notice n = new Notice();
             //CHANGE WITH AUTHKEY
-            n.userid = 1;
+            n.userid = Convert.ToInt32(Session["id"]);
             n.createdat = DateTime.Now;
             n.status = "Active";
             return View(n);
@@ -327,7 +327,7 @@ namespace ANTS.Controllers
                     }
                     var log = new Auditlog
                     {
-                        adminid = 1,
+                        adminid = Convert.ToInt32(Session["id"]),
                         userid = id,
                         createdat = DateTime.Now,
                         details = "Apatoto Thaklo",
