@@ -3,12 +3,12 @@
     ViewBag.Title = "ViewNotices";
 }
 
-<h2>ViewNotices</h2>
+<h2>View Notices</h2>
 
 <link href="~/Content/Admin/header.css" rel="stylesheet" />
 
 <div class="header-container">
-    <a href="CreateManager" class="btn btn-primary text-light create-button">Create New</a>
+    <a href="/Admin/CreateNotice" class="btn btn-primary text-light create-button">Create New</a>
 
     <form action="/Admin/ViewUsers" method="post" class="search-box">
         <input class="form-control" type="text" name="searchtext" value="" placeholder="Search Users via Name" />
@@ -16,9 +16,6 @@
     </form>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "CreateNotice")
-</p>
 <table class="table table-striped">
     <tr>
         <th>

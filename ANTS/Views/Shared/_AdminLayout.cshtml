@@ -17,8 +17,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 @*@Html.ActionLink("Admin Home", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })*@
-                @*<span class="navbar-brand">Welcome @Session["name"]</span>*@
-                <span class="navbar-brand">Welcome Test</span>
+                <span class="navbar-brand">Welcome @Session["name"]</span>
+                @*<span class="navbar-brand">Welcome Test</span>*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -27,6 +27,9 @@
                     <li>@Html.ActionLink("View Users", "ViewUsers", "Admin")</li>
                     <li>@Html.ActionLink("View Notices", "ViewNotices", "Admin")</li>
                     <li>@Html.ActionLink("View Complains", "ViewComplains", "Admin")</li>
+                    <li>@Html.ActionLink("View Vouchers", "ViewVouchers", "Admin")</li>
+                    <li>@Html.ActionLink("Admin Actions", "AdminAction", "Admin")</li>
+                    <li>@Html.ActionLink("Audit Log", "ViewAuditLogs", "Admin")</li>
                     <li>@Html.ActionLink("Logout", "Index", "Login")</li>
                 </ul>
             </div>
