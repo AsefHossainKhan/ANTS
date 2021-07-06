@@ -73,10 +73,14 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult EditUser(User u)
         {
-            var user = context.Users.FirstOrDefault(e => e.userid == u.userid);
-            context.Entry(user).CurrentValues.SetValues(u);
-            context.SaveChanges();
-            return RedirectToAction("ViewUsers");
+            if (ModelState.IsValid)
+            {
+                var user = context.Users.FirstOrDefault(e => e.userid == u.userid);
+                context.Entry(user).CurrentValues.SetValues(u);
+                context.SaveChanges();
+                return RedirectToAction("ViewUsers");
+            }
+            return View(u);
         }
 
         public ActionResult DeleteUser(int id)
@@ -200,10 +204,14 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult EditNotice(Notice n)
         {
+            if (ModelState.IsValid)
+            {
             var notice = context.Notices.FirstOrDefault(e => e.noticeid == n.noticeid);
             context.Entry(notice).CurrentValues.SetValues(n);
             context.SaveChanges();
             return RedirectToAction("ViewNotices");
+            }
+            return View(n);
         }
 
         public ActionResult DeleteNotice(int id)
@@ -276,10 +284,14 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult EditComplain(Rating r)
         {
+            if (ModelState.IsValid)
+            {
             var rating = context.Ratings.FirstOrDefault(e => e.ratingid == r.ratingid);
             context.Entry(rating).CurrentValues.SetValues(r);
             context.SaveChanges();
             return RedirectToAction("ViewComplains");
+            }
+            return View(r);
         }
 
         public ActionResult DeleteComplain(int id)
@@ -390,10 +402,14 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult EditVoucher(Voucher v)
         {
-            var voucher = context.Vouchers.FirstOrDefault(e => e.voucherid == v.voucherid);
-            context.Entry(voucher).CurrentValues.SetValues(v);
-            context.SaveChanges();
-            return RedirectToAction("ViewVouchers");
+            if (ModelState.IsValid)
+            {
+                var voucher = context.Vouchers.FirstOrDefault(e => e.voucherid == v.voucherid);
+                context.Entry(voucher).CurrentValues.SetValues(v);
+                context.SaveChanges();
+                return RedirectToAction("ViewVouchers");
+            }
+            return View(v);
         }
 
         public ActionResult DeleteVoucher(int id)
