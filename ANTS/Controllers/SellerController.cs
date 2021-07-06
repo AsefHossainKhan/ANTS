@@ -46,11 +46,15 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult Create(Package p)
         {
-            p.createdat = DateTime.Now;
-            p.userid = Convert.ToInt32(Session["id"].ToString());
-            context.Packages.Add(p);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                p.createdat = DateTime.Now;
+                p.userid = Convert.ToInt32(Session["id"].ToString());
+                context.Packages.Add(p);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
 
@@ -66,20 +70,20 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult Edit(Package p)
         {
-            var oldp = context.Packages.FirstOrDefault(e => e.packageid == p.packageid);
-            oldp.packagename = p.packagename;
-            oldp.price = p.price;
-            oldp.category = p.category;
-            oldp.discount = p.discount;
-            oldp.details = p.details;
-            oldp.location = p.location;
-            oldp.advertisement = p.advertisement;
-
-            //manually change
-            // context.Entry(oldp).State = System.Data.Entity.EntityState.Modified;*/
-            //context.Entry(oldp).CurrentValues.SetValues(p);
-            context.SaveChanges();
-            return RedirectToAction("Show");
+            if (ModelState.IsValid)
+            {
+                var oldp = context.Packages.FirstOrDefault(e => e.packageid == p.packageid);
+                oldp.packagename = p.packagename;
+                oldp.price = p.price;
+                oldp.category = p.category;
+                oldp.discount = p.discount;
+                oldp.details = p.details;
+                oldp.location = p.location;
+                oldp.advertisement = p.advertisement;
+                context.SaveChanges();
+                return RedirectToAction("Show");
+            }
+            return View(p);
         }
         [SellerAuthentication]
         public ActionResult Details(int id)
@@ -210,10 +214,14 @@ namespace ANTS.Controllers
             if (p.password == ConfirmPassword)
             {
                 oldp.password = p.password;
+                context.SaveChanges();
+                return View(oldp);
             }
-
-            context.SaveChanges();
-            return RedirectToAction("EditProfile");
+            else
+            {
+                ViewBag.match = "Password did not match";
+                return View(p);
+            }
         }
 
         [SellerAuthentication]
