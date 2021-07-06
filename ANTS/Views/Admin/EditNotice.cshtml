@@ -26,7 +26,6 @@
             <select name="usertype" class="form-control">
                 @if (Model.usertype == "Admin")
                 {
-                    <option disabled>--SELECT--</option>
                     <option value="Customer">Customer</option>
                     <option value="Seller">Seller</option>
                     <option value="Manager">Manager</option>
@@ -34,7 +33,6 @@
                 }
                 else if (Model.usertype == "Manager")
                 {
-                    <option disabled>--SELECT--</option>
                     <option value="Customer">Customer</option>
                     <option value="Seller">Service Provider</option>
                     <option selected value="Manager">Manager</option>
@@ -42,7 +40,6 @@
                 }
                 else if (Model.usertype == "Customer")
                 {
-                    <option disabled>--SELECT--</option>
                     <option value="Customer">Customer</option>
                     <option selected value="Seller">Seller</option>
                     <option value="Manager">Manager</option>
@@ -50,17 +47,8 @@
                 }
                 else if (Model.usertype == "Seller")
                 {
-                    <option disabled>--SELECT--</option>
                     <option value="Customer">Customer</option>
                     <option selected value="Seller">Seller</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Admin">Admin</option>
-                }
-                else
-                {
-                    <option selected disabled>--SELECT--</option>
-                    <option value="Customer">Customer</option>
-                    <option value="Seller">Seller</option>
                     <option value="Manager">Manager</option>
                     <option value="Admin">Admin</option>
                 }
@@ -93,7 +81,6 @@
             else if (Model.status == "Inactive")
             {
                 <select name="status" class="form-control">
-                    <option disabled>--SELECT--</option>
                     <option value="Active">Active</option>
                     <option selected value="Inactive">Inactive</option>
                 </select>
@@ -101,7 +88,6 @@
             else
             {
                 <select name="status" class="form-control">
-                    <option selected disabled>--SELECT--</option>
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                 </select>
