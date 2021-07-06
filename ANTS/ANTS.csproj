@@ -311,6 +311,7 @@
     <Content Include="Content\assets\img\team\team-2.jpg" />
     <Content Include="Content\assets\img\team\team-3.jpg" />
     <Content Include="Content\assets\img\team\team-4.jpg" />
+    <Content Include="Content\assets\img\team\team-5.PNG" />
     <Content Include="Content\assets\js\main.js" />
     <Content Include="Content\assets\vendor\animate.css\animate.compat.css" />
     <Content Include="Content\assets\vendor\animate.css\animate.css" />
@@ -501,19 +502,20 @@
     <Content Include="Views\Admin\ViewUsers.cshtml" />
     <Content Include="Views\Admin\ViewVouchers.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Customer\BuyPackage.cshtml" />
     <Content Include="Views\Customer\CustomerProfile.cshtml" />
     <Content Include="Views\Customer\EditProfile.cshtml" />
     <Content Include="Views\Customer\GiveRating.cshtml" />
     <Content Include="Views\Customer\Notices.cshtml" />
     <Content Include="Views\Customer\Orderhistory.cshtml" />
-    <Content Include="Views\Customer\PackageDetails.cshtml" />
     <Content Include="Views\Customer\TransactionDetails.cshtml" />
     <Content Include="Views\Customer\Transactions.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Home\Blog_single.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\Orderdetails.cshtml" />
+    <Content Include="Views\Customer\PackageDetails.cshtml" />
+    <Content Include="Views\Customer\BuyPackage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

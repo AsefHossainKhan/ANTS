@@ -13,10 +13,10 @@
 
 <form action="/Customer/Orderhistory" method="post">
     <input class="form-control" type="text" name="searching" value="" placeholder="Type package name" />
-    <input class="form-control" type="submit" class="btn btn-warning" name="Searching" value="Search" />
+    <input class="form-control" type="submit"  name="Searching" value="Search" />
 </form>
 <form action="/Customer/Orderhistory" method="get">
-    <input class="form-control" type="submit" class="btn btn-primary" name="Showall" value="Show All" />
+    <input class="form-control" type="submit"  name="Showall" value="Show All" />
 </form>
 <br />
 <br />
@@ -24,81 +24,83 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.customerphone)
+            Seller Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.customeraddress)
+            Customer Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.packageid)
+            Customer Phone No
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ordername)
+            Customer Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.paytype)
+            Package Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.quantity)
+            Order Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.totalprice)
+            Pay Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.createdat)
+            Quantity
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            Total Price
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.name)
+            Order placed at
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User1.name)
+            Order status
         </th>
-        <th></th>
+
+        <th>Action</th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.customerphone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.customeraddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.packageid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ordername)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.paytype)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.totalprice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.createdat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User1.name)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.orderid }) |
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.User.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.User1.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.customerphone)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.customeraddress)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.packageid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ordername)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.paytype)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.totalprice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.createdat)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.status)
+    </td>
+
+    <td>
+        @Html.ActionLink("Details", "OrderDetails", new { id = item.orderid }) |
+    </td>
+</tr>
     }
 
 </table>

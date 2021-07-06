@@ -58,7 +58,7 @@ namespace ANTS.Controllers
             var v = quantity * p.price;
             o.totalprice = v;
             o.createdat = DateTime.Now;
-            o.status = "pending";
+            o.status = "unsold";
             context.Orders.Add(o);
             context.SaveChanges();
             return RedirectToAction("Index");
@@ -123,7 +123,9 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult Orderhistory(string searching)
         {
+            var id = Convert.ToInt32(Session["id"]);
             var list = (from o in context.Orders
+                        where o.customerid == id
                         where o.ordername.Contains(searching)
                         select o).ToList();
             return View(list);

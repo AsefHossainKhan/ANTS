@@ -16,6 +16,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            Seller Id
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userid)
+        </dd>
+
+        <dt>
             Package Name
         </dt>
 
@@ -24,7 +32,7 @@
         </dd>
 
         <dt>
-            Package price
+            Package Price
         </dt>
 
         <dd>
@@ -32,7 +40,7 @@
         </dd>
 
         <dt>
-            Package details
+            Package Details
         </dt>
 
         <dd>
@@ -48,43 +56,35 @@
         </dd>
 
         <dt>
-            Discount percentage
+            Discount
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.discount)
         </dd>
 
-
         <dt>
-            Tour Location
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location)
-        </dd>
-
-        <dt>
-            Package provider
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.name)
-        </dd>
-
-        <dt>
-            Voucher
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Voucher.voucherstatus)
-        </dd>
-        <dt>
-            Package updated
+            Package updated at
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.createdat)
+        </dd>
+
+        <dt>
+            Advertisement
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.advertisement)
+        </dd>
+
+        <dt>
+            Location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location)
         </dd>
 
     </dl>
