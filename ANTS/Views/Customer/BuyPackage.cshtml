@@ -1,14 +1,27 @@
-﻿
-@model ANTS.Models.Package
+﻿@model ANTS.Models.Package
+
 @{
     ViewBag.Title = "BuyPackage";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
+<h2>BuyPackage</h2>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
 <div>
-    <h4>Buy Package</h4>
+    <h4>Package</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            Seller Id
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userid)
+        </dd>
+
         <dt>
             Package Name
         </dt>
@@ -18,7 +31,7 @@
         </dd>
 
         <dt>
-            Package price
+            Package Price
         </dt>
 
         <dd>
@@ -26,7 +39,7 @@
         </dd>
 
         <dt>
-            Package details
+            Package Details
         </dt>
 
         <dd>
@@ -42,48 +55,31 @@
         </dd>
 
         <dt>
-            Discount percentage
+            Discount
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.discount)
         </dd>
 
-
         <dt>
-            Tour Location
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location)
-        </dd>
-
-        <dt>
-            Package provider
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.name)
-        </dd>
-
-        <dt>
-            Voucher
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Voucher.voucherstatus)
-        </dd>
-        <dt>
-            Package updated
+            Package Updated at
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.createdat)
         </dd>
 
+        <dt>
+            Location
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location)
+        </dd>
+
     </dl>
 </div>
-
 <form action="/Customer/BuyPackage" method="post">
 
     <div class="form-group">
