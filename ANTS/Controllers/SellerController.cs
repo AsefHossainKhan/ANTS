@@ -72,7 +72,6 @@ namespace ANTS.Controllers
             oldp.category = p.category;
             oldp.discount = p.discount;
             oldp.details = p.details;
-            oldp.voucherid = p.voucherid;
             oldp.location = p.location;
             oldp.advertisement = p.advertisement;
 

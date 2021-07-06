@@ -1,57 +1,64 @@
-﻿@model IEnumerable<ANTS.Models.Notice>
-
-@{
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "ViewNotices";
 }
 
-<h2>ViewNotices</h2>
+<h2>View Notices</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<link href="~/Content/Admin/header.css" rel="stylesheet" />
+
+<div class="header-container">
+    <a href="/Admin/CreateNotice" class="btn btn-primary text-light create-button">Create New</a>
+
+    <form action="/Admin/ViewUsers" method="post" class="search-box">
+        <input class="form-control" type="text" name="searchtext" value="" placeholder="Search Users via Name" />
+        <input class="form-control btn btn-primary" type="submit" value="Search" />
+    </form>
+</div>
+
+<table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.userid)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.usertype)
+            User Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.notice1)
+            Notice
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.createdat)
+            Created At
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            Status
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.userid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.usertype)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.notice1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.createdat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditNotice", new { id=item.noticeid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.noticeid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.noticeid })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.GetType().GetProperty("name").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("usertype").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("notice").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("createdat").GetValue(item)
+            </td>
+            <td>
+                @item.GetType().GetProperty("status").GetValue(item)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditNotice", new { id = @item.GetType().GetProperty("noticeid").GetValue(item) }) |
+                @Html.ActionLink("Delete", "DeleteNotice", new { id = @item.GetType().GetProperty("noticeid").GetValue(item) })
+            </td>
+        </tr>
+    }
 
 </table>

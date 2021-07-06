@@ -88,13 +88,11 @@
     <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="discount" Type="Double" Nullable="false" />
-    <Property Name="voucherid" Type="Int32" Nullable="false" />
     <Property Name="createdat" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="advertisement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="approvestatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Packages_Users" FromRole="Packages" ToRole="Users" />
-    <NavigationProperty Name="Voucher" Relationship="Self.FK_Packages_Voucher" FromRole="Packages" ToRole="Voucher" />
     <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Packages" FromRole="Packages" ToRole="Ratings" />
   </EntityType>
   <EntityType Name="Rating">
@@ -143,6 +141,7 @@
     <NavigationProperty Name="Packages" Relationship="Self.FK_Packages_Users" FromRole="Users" ToRole="Packages" />
     <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Users" FromRole="Users" ToRole="Ratings" />
     <NavigationProperty Name="Voucherentries" Relationship="Self.FK_Voucherentry_Users" FromRole="Users" ToRole="Voucherentry" />
+    <NavigationProperty Name="Vouchers" Relationship="ANTSModel.FK_Voucher_Users" FromRole="User" ToRole="Voucher" />
   </EntityType>
   <EntityType Name="Voucher">
     <Key>
@@ -150,8 +149,10 @@
     </Key>
     <Property Name="voucherid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="voucherstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Packages" Relationship="Self.FK_Packages_Voucher" FromRole="Voucher" ToRole="Packages" />
     <NavigationProperty Name="Voucherentries" Relationship="Self.FK_Voucherentry_Voucher" FromRole="Voucher" ToRole="Voucherentry" />
+    <Property Name="voucher1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="ANTSModel.FK_Voucher_Users" FromRole="Voucher" ToRole="User" />
   </EntityType>
   <EntityType Name="Voucherentry">
     <Key>
@@ -271,18 +272,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Packages_Voucher">
-    <End Role="Voucher" Type="Self.Voucher" Multiplicity="1" />
-    <End Role="Packages" Type="Self.Package" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Voucher">
-        <PropertyRef Name="voucherid" />
-      </Principal>
-      <Dependent Role="Packages">
-        <PropertyRef Name="voucherid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Ratings_Packages">
     <End Role="Packages" Type="Self.Package" Multiplicity="1" />
     <End Role="Ratings" Type="Self.Rating" Multiplicity="*" />
@@ -380,10 +369,6 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Packages" EntitySet="Packages" />
     </AssociationSet>
-    <AssociationSet Name="FK_Packages_Voucher" Association="Self.FK_Packages_Voucher">
-      <End Role="Voucher" EntitySet="Vouchers" />
-      <End Role="Packages" EntitySet="Packages" />
-    </AssociationSet>
     <AssociationSet Name="FK_Ratings_Packages" Association="Self.FK_Ratings_Packages">
       <End Role="Packages" EntitySet="Packages" />
       <End Role="Ratings" EntitySet="Ratings" />
@@ -430,6 +415,10 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <AssociationSet Name="FK_Voucher_Users" Association="ANTSModel.FK_Voucher_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Voucher" EntitySet="Vouchers" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -442,4 +431,16 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <Association Name="FK_Voucher_Users">
+    <End Type="ANTSModel.User" Role="User" Multiplicity="1" />
+    <End Type="ANTSModel.Voucher" Role="Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Voucher">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

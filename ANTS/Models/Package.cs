@@ -27,14 +27,12 @@ namespace ANTS.Models
         public string details { get; set; }
         public string category { get; set; }
         public double discount { get; set; }
-        public int voucherid { get; set; }
         public System.DateTime createdat { get; set; }
         public string advertisement { get; set; }
         public string location { get; set; }
         public string approvestatus { get; set; }
     
         public virtual User User { get; set; }
-        public virtual Voucher Voucher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }
     }

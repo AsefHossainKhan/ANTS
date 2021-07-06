@@ -79,7 +79,6 @@
     <Property Name="details" Type="text" />
     <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="discount" Type="float" Nullable="false" />
-    <Property Name="voucherid" Type="int" Nullable="false" />
     <Property Name="createdat" Type="datetime" Nullable="false" />
     <Property Name="advertisement" Type="text" />
     <Property Name="location" Type="text" />
@@ -126,6 +125,8 @@
     </Key>
     <Property Name="voucherid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="voucherstatus" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="voucher" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Voucherentry">
     <Key>
@@ -243,18 +244,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Packages_Voucher">
-    <End Role="Voucher" Type="Self.Voucher" Multiplicity="1" />
-    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Voucher">
-        <PropertyRef Name="voucherid" />
-      </Principal>
-      <Dependent Role="Packages">
-        <PropertyRef Name="voucherid" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Ratings_Packages">
     <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
     <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
@@ -275,6 +264,18 @@
         <PropertyRef Name="userid" />
       </Principal>
       <Dependent Role="Ratings">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Voucher_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Voucher">
         <PropertyRef Name="userid" />
       </Dependent>
     </ReferentialConstraint>
@@ -383,10 +384,6 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Packages" EntitySet="Packages" />
     </AssociationSet>
-    <AssociationSet Name="FK_Packages_Voucher" Association="Self.FK_Packages_Voucher">
-      <End Role="Voucher" EntitySet="Voucher" />
-      <End Role="Packages" EntitySet="Packages" />
-    </AssociationSet>
     <AssociationSet Name="FK_Ratings_Packages" Association="Self.FK_Ratings_Packages">
       <End Role="Packages" EntitySet="Packages" />
       <End Role="Ratings" EntitySet="Ratings" />
@@ -394,6 +391,10 @@
     <AssociationSet Name="FK_Ratings_Users" Association="Self.FK_Ratings_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Ratings" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Voucher_Users" Association="Self.FK_Voucher_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Voucher" EntitySet="Voucher" />
     </AssociationSet>
     <AssociationSet Name="FK_Voucherentry_Users" Association="Self.FK_Voucherentry_Users">
       <End Role="Users" EntitySet="Users" />

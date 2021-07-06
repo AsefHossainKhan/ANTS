@@ -29,22 +29,23 @@ namespace ANTS.Controllers
             {
 
                 FormsAuthentication.SetAuthCookie(usercheck.userid.ToString(), true);
-                Session["id"] = usercheck.userid.ToString();
                 Session["user_type"] = usercheck.usertype;
+                Session["name"] = usercheck.name;
+                Session["id"] = usercheck.userid;
                 //return Content(usercheck.usertype);
-                if (usercheck.usertype == "admin")
+                if (usercheck.usertype == "Admin")
                 {
                     return RedirectToAction("Index", "Admin");
                 }
-                else if (usercheck.usertype == "manager")
+                else if (usercheck.usertype == "Manager")
                 {
                     return RedirectToAction("Index", "Manager");
                 }
-                else if (usercheck.usertype == "seller")
+                else if (usercheck.usertype == "Seller")
                 {
                     return RedirectToAction("Index", "Seller");
                 }
-                else if (usercheck.usertype == "customer")
+                else if (usercheck.usertype == "Customer")
                 {
                     return RedirectToAction("Index", "Customer");
                 }
@@ -56,8 +57,10 @@ namespace ANTS.Controllers
 
         public ActionResult Logout()
         {
+            Session["user_type"] = null;
+            Session["name"] = null;
+            Session["id"] = null;
             FormsAuthentication.SignOut();
-            Session.Clear();
             return Redirect("/Home");
         }
     }

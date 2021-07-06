@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ANTSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ANTSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="accountid" />
@@ -84,7 +84,6 @@
           <Property Name="details" Type="text" />
           <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="discount" Type="float" Nullable="false" />
-          <Property Name="voucherid" Type="int" Nullable="false" />
           <Property Name="createdat" Type="datetime" Nullable="false" />
           <Property Name="advertisement" Type="text" />
           <Property Name="location" Type="text" />
@@ -131,6 +130,8 @@
           </Key>
           <Property Name="voucherid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="voucherstatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="voucher" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Voucherentry">
           <Key>
@@ -248,18 +249,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Packages_Voucher">
-          <End Role="Voucher" Type="Self.Voucher" Multiplicity="1" />
-          <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Voucher">
-              <PropertyRef Name="voucherid" />
-            </Principal>
-            <Dependent Role="Packages">
-              <PropertyRef Name="voucherid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Ratings_Packages">
           <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
           <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
@@ -280,6 +269,18 @@
               <PropertyRef Name="userid" />
             </Principal>
             <Dependent Role="Ratings">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Voucher">
               <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
@@ -388,10 +389,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Packages" EntitySet="Packages" />
           </AssociationSet>
-          <AssociationSet Name="FK_Packages_Voucher" Association="Self.FK_Packages_Voucher">
-            <End Role="Voucher" EntitySet="Voucher" />
-            <End Role="Packages" EntitySet="Packages" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ratings_Packages" Association="Self.FK_Ratings_Packages">
             <End Role="Packages" EntitySet="Packages" />
             <End Role="Ratings" EntitySet="Ratings" />
@@ -399,6 +396,10 @@
           <AssociationSet Name="FK_Ratings_Users" Association="Self.FK_Ratings_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_Users" Association="Self.FK_Voucher_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Voucher" EntitySet="Voucher" />
           </AssociationSet>
           <AssociationSet Name="FK_Voucherentry_Users" Association="Self.FK_Voucherentry_Users">
             <End Role="Users" EntitySet="Users" />
@@ -409,8 +410,7 @@
             <End Role="Voucherentry" EntitySet="Voucherentry" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ANTSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -502,13 +502,11 @@
           <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="discount" Type="Double" Nullable="false" />
-          <Property Name="voucherid" Type="Int32" Nullable="false" />
           <Property Name="createdat" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="advertisement" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="approvestatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Packages_Users" FromRole="Packages" ToRole="Users" />
-          <NavigationProperty Name="Voucher" Relationship="Self.FK_Packages_Voucher" FromRole="Packages" ToRole="Voucher" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Packages" FromRole="Packages" ToRole="Ratings" />
         </EntityType>
         <EntityType Name="Rating">
@@ -557,6 +555,7 @@
           <NavigationProperty Name="Packages" Relationship="Self.FK_Packages_Users" FromRole="Users" ToRole="Packages" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Ratings_Users" FromRole="Users" ToRole="Ratings" />
           <NavigationProperty Name="Voucherentries" Relationship="Self.FK_Voucherentry_Users" FromRole="Users" ToRole="Voucherentry" />
+          <NavigationProperty Name="Vouchers" Relationship="ANTSModel.FK_Voucher_Users" FromRole="User" ToRole="Voucher" />
         </EntityType>
         <EntityType Name="Voucher">
           <Key>
@@ -564,8 +563,10 @@
           </Key>
           <Property Name="voucherid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="voucherstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Packages" Relationship="Self.FK_Packages_Voucher" FromRole="Voucher" ToRole="Packages" />
           <NavigationProperty Name="Voucherentries" Relationship="Self.FK_Voucherentry_Voucher" FromRole="Voucher" ToRole="Voucherentry" />
+          <Property Name="voucher1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ANTSModel.FK_Voucher_Users" FromRole="Voucher" ToRole="User" />
         </EntityType>
         <EntityType Name="Voucherentry">
           <Key>
@@ -685,18 +686,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Packages_Voucher">
-          <End Role="Voucher" Type="Self.Voucher" Multiplicity="1" />
-          <End Role="Packages" Type="Self.Package" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Voucher">
-              <PropertyRef Name="voucherid" />
-            </Principal>
-            <Dependent Role="Packages">
-              <PropertyRef Name="voucherid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Ratings_Packages">
           <End Role="Packages" Type="Self.Package" Multiplicity="1" />
           <End Role="Ratings" Type="Self.Rating" Multiplicity="*" />
@@ -794,10 +783,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Packages" EntitySet="Packages" />
           </AssociationSet>
-          <AssociationSet Name="FK_Packages_Voucher" Association="Self.FK_Packages_Voucher">
-            <End Role="Voucher" EntitySet="Vouchers" />
-            <End Role="Packages" EntitySet="Packages" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ratings_Packages" Association="Self.FK_Ratings_Packages">
             <End Role="Packages" EntitySet="Packages" />
             <End Role="Ratings" EntitySet="Ratings" />
@@ -844,6 +829,10 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK_Voucher_Users" Association="ANTSModel.FK_Voucher_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -856,6 +845,18 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <Association Name="FK_Voucher_Users">
+          <End Type="ANTSModel.User" Role="User" Multiplicity="1" />
+          <End Type="ANTSModel.Voucher" Role="Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -946,7 +947,6 @@
                 <ScalarProperty Name="details" ColumnName="details" />
                 <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="voucherid" ColumnName="voucherid" />
                 <ScalarProperty Name="createdat" ColumnName="createdat" />
                 <ScalarProperty Name="advertisement" ColumnName="advertisement" />
                 <ScalarProperty Name="location" ColumnName="location" />
@@ -995,6 +995,8 @@
           <EntitySetMapping Name="Vouchers">
             <EntityTypeMapping TypeName="ANTSModel.Voucher">
               <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="voucher1" ColumnName="voucher" />
                 <ScalarProperty Name="voucherid" ColumnName="voucherid" />
                 <ScalarProperty Name="voucherstatus" ColumnName="voucherstatus" />
               </MappingFragment>

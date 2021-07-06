@@ -1,10 +1,11 @@
 ﻿@model ANTS.Models.Notice
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "CreateNotice";
 }
 
-<h2>CreateNotice</h2>
+<h2>Create Notice</h2>
 
 
 @using (Html.BeginForm()) 
@@ -19,9 +20,15 @@
     <input type="hidden" name="userid" value=@Model.userid />
 
     <div class="form-group">
-        @Html.LabelFor(model => model.usertype, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.usertype, "User Type", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.usertype, new { htmlAttributes = new { @class = "form-control" } })
+            <select name="usertype" class="form-control">
+                <option selected disabled>--SELECT--</option>
+                <option value="Admin">Admin</option>
+                <option value="Manager">Manager</option>
+                <option value="Seller">Seller</option>
+                <option value="Customer">Customer</option>
+            </select>
             @Html.ValidationMessageFor(model => model.usertype, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -29,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.notice1, "Notice", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.notice1, new { htmlAttributes = new { @class = "form-control" } })
+            <textarea name="notice1" class="form-control"></textarea>
             @Html.ValidationMessageFor(model => model.notice1, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -39,7 +46,11 @@
     <div class="form-group">
         @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+            <select name="status" class="form-control">
+                <option selected disabled>--SELECT--</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
             @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -53,7 +64,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ViewNotices")
 </div>
 
 @section Scripts {
