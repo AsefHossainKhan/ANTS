@@ -217,5 +217,14 @@ namespace ANTS.Controllers
             return RedirectToAction("EditProfile");
         }
 
+        [SellerAuthentication]
+        public ActionResult ShowNotice()
+        {
+            var id = Convert.ToInt32(Session["id"].ToString());
+            var list = (from p in context.Notices
+                        where p.userid == id
+                        select p).ToList();
+            return View(list);
+        }
     }
 }

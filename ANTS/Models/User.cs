@@ -12,6 +12,7 @@ namespace ANTS.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class User
     {
@@ -29,17 +30,25 @@ namespace ANTS.Models
             this.Ratings = new HashSet<Rating>();
             this.Voucherentries = new HashSet<Voucherentry>();
         }
-    
+   
         public int userid { get; set; }
+        [Required]
         public string name { get; set; }
+        [Required]
         public string status { get; set; }
+        [Required]
         public string usertype { get; set; }
+        [Required]
         public System.DateTime createdat { get; set; }
         [Required]
+        [EmailAddress]
+        [Index(IsUnique = true)]
         public string email { get; set; }
         [Required]
         public string password { get; set; }
+        [Required]
         public string image { get; set; }
+        [Required]
         public string phone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

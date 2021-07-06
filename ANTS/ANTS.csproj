@@ -134,6 +134,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -265,6 +266,8 @@
     <Content Include="Views\Seller\ShowSearchOrders.cshtml" />
     <Content Include="Views\Seller\Dashboard.cshtml" />
     <Content Include="Views\Seller\EditProfile.cshtml" />
+    <Content Include="Views\Seller\ShowNotice.cshtml" />
+    <Content Include="Views\Registration\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
