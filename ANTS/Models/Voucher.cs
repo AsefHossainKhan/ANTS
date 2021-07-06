@@ -11,8 +11,7 @@ namespace ANTS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Voucher
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +21,10 @@ namespace ANTS.Models
         }
     
         public int voucherid { get; set; }
-        [Required]
         public string voucherstatus { get; set; }
-        [Required (ErrorMessage = "The Voucher field is required.")]
         public string voucher1 { get; set; }
-        [Required]
         public int userid { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Voucherentry> Voucherentries { get; set; }
         public virtual User User { get; set; }

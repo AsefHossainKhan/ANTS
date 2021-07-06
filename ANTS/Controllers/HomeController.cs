@@ -13,17 +13,28 @@ namespace ANTS.Controllers
             return View();
         }
        
-        [Authorize]
+        
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+           
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            
+            return View();
+        }
+
+        public ActionResult Blog()
+        {
+
+            return View();
+        }
+
+        public ActionResult Blog_single()
+        {
 
             return View();
         }

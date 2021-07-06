@@ -15,5 +15,5 @@
     @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
     <input class="form-control" type="submit" name="login" value="Login" />
 </form>
-<a href="/Registration/Create" class="btn btn-danger">Sign up</a>
+<h4><a href="/Registration/Create">Not Registered Yet?</a></h4>
 <span>@TempData["ErrorMessage"]</span>
