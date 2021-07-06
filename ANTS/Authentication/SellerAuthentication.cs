@@ -15,7 +15,7 @@ namespace ANTS.Authentication
                     filterContext.Controller.TempData["ErrorMessage"] = "Please Login In!";
                     filterContext.Result = new RedirectResult("/Login/Index");
                 }
-                else if (!filterContext.HttpContext.Session["user_type"].Equals("seller"))
+                else if (!filterContext.HttpContext.Session["user_type"].Equals("Seller"))
                 {
                     filterContext.Controller.TempData["ErrorMessage"] = "Invalid Request!";
                     filterContext.Result = new RedirectResult("/Login/Index");

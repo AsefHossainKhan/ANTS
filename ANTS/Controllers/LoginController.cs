@@ -24,34 +24,38 @@ namespace ANTS.Controllers
         public ActionResult Index(User u, string returnUrl)
         {
             var usercheck = context.Users.FirstOrDefault(e => e.email == u.email);
-            
-            if ( usercheck.password == u.password && u.password != null)
+            if (usercheck != null)
             {
+                if (usercheck.password == u.password && u.password != null)
+                {
 
-                FormsAuthentication.SetAuthCookie(usercheck.userid.ToString(), true);
-                Session["user_type"] = usercheck.usertype;
-                Session["name"] = usercheck.name;
-                Session["id"] = usercheck.userid;
-                //return Content(usercheck.usertype);
-                if (usercheck.usertype == "Admin")
-                {
-                    return RedirectToAction("Index", "Admin");
+                    FormsAuthentication.SetAuthCookie(usercheck.userid.ToString(), true);
+                    Session["user_type"] = usercheck.usertype;
+                    Session["name"] = usercheck.name;
+                    Session["id"] = usercheck.userid;
+                    //return Content(usercheck.usertype);
+                    if (usercheck.usertype == "Admin")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if (usercheck.usertype == "Manager")
+                    {
+                        return RedirectToAction("Index", "Manager");
+                    }
+                    else if (usercheck.usertype == "Seller")
+                    {
+                        return RedirectToAction("Index", "Seller");
+                    }
+                    else if (usercheck.usertype == "Customer")
+                    {
+                        return RedirectToAction("Index", "Customer");
+                    }
+
                 }
-                else if (usercheck.usertype == "Manager")
-                {
-                    return RedirectToAction("Index", "Manager");
-                }
-                else if (usercheck.usertype == "Seller")
-                {
-                    return RedirectToAction("Index", "Seller");
-                }
-                else if (usercheck.usertype == "Customer")
-                {
-                    return RedirectToAction("Index", "Customer");
-                }
-                
+                TempData["ErrorMessage"] = "Incorrect Username/Password";
+                return View();
             }
-            TempData["ErrorMessage"] = "Incorrect Username/Password";
+            TempData["ErrorMessage"] = "This email doesn't exist";
             return View();
         }
 
