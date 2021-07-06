@@ -53,7 +53,7 @@ namespace ANTS.Controllers
                     ViewBag.match = "Password did not match";
                     User p = new User();
                     p.createdat = DateTime.Now;
-                    return View(p);
+                    return View(u);
                 }
                 context.Users.Add(u);
                 context.SaveChanges();
@@ -414,9 +414,16 @@ namespace ANTS.Controllers
         [HttpPost]
         public ActionResult CreateVoucher(Voucher v)
         {
-            context.Vouchers.Add(v);
-            context.SaveChanges();
-            return RedirectToAction("ViewVouchers");
+            if (ModelState.IsValid)
+            {
+                context.Vouchers.Add(v);
+                context.SaveChanges();
+                return RedirectToAction("ViewVouchers");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult ViewAuditLogs()
