@@ -41,6 +41,7 @@ namespace ANTS.Models
         [Required]
         public System.DateTime createdat { get; set; }
         [Required]
+        [EmailAddress]
         public string email { get; set; }
         [Required]
         public string password { get; set; }

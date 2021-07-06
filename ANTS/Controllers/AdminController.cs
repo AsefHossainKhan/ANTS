@@ -55,9 +55,20 @@ namespace ANTS.Controllers
                     p.createdat = DateTime.Now;
                     return View(p);
                 }
-                context.Users.Add(u);
-                context.SaveChanges();
-                return RedirectToAction("ViewUsers");
+                var pr = context.Users.FirstOrDefault(e => e.email == u.email);
+                if (pr == null)
+                {
+                    context.Users.Add(u);
+                    context.SaveChanges();
+                    return RedirectToAction("ViewUsers");
+                }
+                else
+                {
+                    ViewBag.UniqueEmail = "This email exists";
+                    User z = new User();
+                    z.createdat = DateTime.Now;
+                    return View(z);
+                }
             }
             User x = new User();
             x.createdat = DateTime.Now;
