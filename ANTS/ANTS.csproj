@@ -305,6 +305,9 @@
     <Content Include="Content\assets\img\features-2.png" />
     <Content Include="Content\assets\img\features-3.png" />
     <Content Include="Content\assets\img\features-4.png" />
+    <Content Include="Content\assets\img\slide\bhalo1.jfif" />
+    <Content Include="Content\assets\img\slide\bhalo2.jfif" />
+    <Content Include="Content\assets\img\slide\bhalo3.jpg" />
     <Content Include="Content\assets\img\slide\slide-1.jpg" />
     <Content Include="Content\assets\img\slide\slide-2.jpg" />
     <Content Include="Content\assets\img\slide\slide-3.jpg" />
@@ -517,6 +520,7 @@
     <Content Include="Views\Customer\Orderdetails.cshtml" />
     <Content Include="Views\Customer\PackageDetails.cshtml" />
     <Content Include="Views\Customer\BuyPackage.cshtml" />
+    <Content Include="Views\Shared\SellerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
