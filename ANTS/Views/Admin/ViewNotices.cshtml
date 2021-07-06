@@ -52,7 +52,9 @@
                 @item.GetType().GetProperty("createdat").GetValue(item)
             </td>
             <td>
-                @item.GetType().GetProperty("status").GetValue(item)
+                <b>
+                    @item.GetType().GetProperty("status").GetValue(item)
+                </b>
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditNotice", new { id = @item.GetType().GetProperty("noticeid").GetValue(item) }) |

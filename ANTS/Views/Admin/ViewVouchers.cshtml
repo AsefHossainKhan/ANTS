@@ -36,7 +36,9 @@
     {
         <tr>
             <td>
-                @item.GetType().GetProperty("voucherStatus").GetValue(item)
+                <b>
+                    @item.GetType().GetProperty("voucherStatus").GetValue(item)
+                </b>
             </td>
             <td>
                 @item.GetType().GetProperty("voucher").GetValue(item)
