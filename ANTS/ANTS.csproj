@@ -129,7 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Authentication\AdminAuthentication.cs" />
-    <Compile Include="Authentication\ManagerAuthentication.cs" />
+    <Compile Include="Authentication\CustomerAuthentication.cs" />
     <Compile Include="Authentication\SellerAuthentication.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -199,6 +199,8 @@
     <Compile Include="Models\Voucherentry.cs">
       <DependentUpon>ANTSDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
+    <Compile Include="obj\Release\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +305,6 @@
     <Content Include="Content\assets\img\features-2.png" />
     <Content Include="Content\assets\img\features-3.png" />
     <Content Include="Content\assets\img\features-4.png" />
-    <Content Include="Content\assets\img\slide\bhalo1.jfif" />
-    <Content Include="Content\assets\img\slide\bhalo2.jfif" />
-    <Content Include="Content\assets\img\slide\bhalo3.jpg" />
     <Content Include="Content\assets\img\slide\slide-1.jpg" />
     <Content Include="Content\assets\img\slide\slide-2.jpg" />
     <Content Include="Content\assets\img\slide\slide-3.jpg" />
@@ -379,6 +378,12 @@
       <DependentUpon>ANTSDbContext.edmx</DependentUpon>
       <LastGenOutput>ANTSDbContext.cs</LastGenOutput>
     </Content>
+    <Content Include="obj\Debug\ANTS.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\ANTS.dll" />
+    <Content Include="obj\Debug\ANTS.pdb" />
+    <Content Include="obj\Debug\TempPE\Models.ANTSDbContext.Context.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.ANTSDbContext.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Models.ANTSDbContext.Designer.cs.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\ANTSDbContext.edmx">
@@ -402,6 +407,13 @@
     <Content Include=".vs\ANTS\v16\.suo" />
     <Content Include=".vs\slnx.sqlite" />
     <Content Include=".vs\VSWorkspaceState.json" />
+    <Content Include="obj\Debug\ANTS.csproj.AssemblyReference.cache" />
+    <Content Include="obj\Debug\ANTS.csproj.CopyComplete" />
+    <Content Include="obj\Debug\ANTS.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\ANTSDbContext.csdl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\ANTSDbContext.msl" />
+    <Content Include="obj\Debug\edmxResourcesToEmbed\Models\ANTSDbContext.ssdl" />
     <Content Include="Content\assets\vendor\bootstrap-icons\bootstrap-icons.json" />
     <Content Include="Content\assets\vendor\bootstrap-icons\fonts\bootstrap-icons.woff" />
     <Content Include="Content\assets\vendor\bootstrap-icons\fonts\bootstrap-icons.woff2" />
@@ -491,17 +503,24 @@
     <Content Include="Views\Admin\ViewUsers.cshtml" />
     <Content Include="Views\Admin\ViewVouchers.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Manager\CreateSeller.cshtml" />
-    <Content Include="Views\Manager\DeleteUser.cshtml" />
-    <Content Include="Views\Manager\EditUser.cshtml" />
-    <Content Include="Views\Manager\ViewPackages.cshtml" />
-    <Content Include="Views\Manager\ViewSearchPackages.cshtml" />
-    <Content Include="Views\Manager\ViewUsers.cshtml" />
-    <Content Include="Views\Manager\EditProfile.cshtml" />
-    <Content Include="Views\Shared\_ManagerLayout.cshtml" />
-    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\CustomerProfile.cshtml" />
+    <Content Include="Views\Customer\EditProfile.cshtml" />
+    <Content Include="Views\Customer\GiveRating.cshtml" />
+    <Content Include="Views\Customer\Notices.cshtml" />
+    <Content Include="Views\Customer\Orderhistory.cshtml" />
+    <Content Include="Views\Customer\TransactionDetails.cshtml" />
+    <Content Include="Views\Customer\Transactions.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Home\Blog_single.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
-    <Content Include="Views\Shared\SellerLayout.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
+    <Content Include="Views\Customer\Orderdetails.cshtml" />
+    <Content Include="Views\Customer\PackageDetails.cshtml" />
+    <Content Include="Views\Customer\BuyPackage.cshtml" />
+    <Content Include="Views\Customer\CancelOrder.cshtml" />
+    <Content Include="Views\Customer\Complain.cshtml" />
+    <Content Include="Views\Customer\BlogWriting.cshtml" />
+    <Content Include="Views\Customer\BlogView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

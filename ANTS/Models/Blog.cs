@@ -11,10 +11,12 @@ namespace ANTS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Blog
     {
         public int blogid { get; set; }
+        [Required]
         public string blog1 { get; set; }
         public int userid { get; set; }
     
